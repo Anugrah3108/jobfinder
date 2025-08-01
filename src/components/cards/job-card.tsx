@@ -5,22 +5,20 @@ import {
   Flex,
   Text,
   Button,
-  Separator,
   Badge,
   Heading,
-  ThickChevronRightIcon,
+  Separator,
 } from "@radix-ui/themes";
+import { ChevronRight } from "lucide-react";
 
 type Job = {
-  employer_logo: string | null;
-  employer_name: string;
-  job_title: string;
-  job_employment_type?: string;
-  job_location?: string;
-  job_state?: string;
-  job_posted_at?: string;
-  job_apply_link?: string;
-  job_description?: string;
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  employment_type: string;
+  salary: number;
+  job_type: string;
 };
 
 export default function Jobcard({
@@ -30,133 +28,58 @@ export default function Jobcard({
   job: Job;
   fromSearch: boolean;
 }) {
-  // return (
-  //   <Box width="100%" style={{ maxWidth: "300px", minHeight: "340px" }}>
-  //     <Card variant="classic" style={{ padding: "1rem", height: "100%" }}>
-  //       {/* Top: Company Info */}
-  //       <Flex gap="3" align="center" mb="3">
-  //         <Avatar
-  //           size="3"
-  //           src={job.employer_logo || ""}
-  //           radius="full"
-  //           fallback="JD"
-  //         />
-  //         <Box>
-  //           <Text as="div" size="2" weight="bold">
-  //             {job.employer_name}
-  //           </Text>
-  //           <Text as="div" size="2" color="gray">
-  //             {job.job_title}
-  //           </Text>
-  //         </Box>
-  //       </Flex>
-
-  //       <Separator size="4" my="2" />
-
-  //       {/* Middle: Job Info */}
-  //       <Box mb="3">
-  //         {job.job_employment_type && (
-  //           <Text as="p" size="2" color="gray">
-  //             <strong>Type:</strong> {job.job_employment_type}
-  //           </Text>
-  //         )}
-  //         {(job.job_city || job.job_state) && (
-  //           <Text as="p" size="2" color="gray">
-  //             <strong>Location:</strong> {job.job_city}, {job.job_state}
-  //           </Text>
-  //         )}
-  //         {job.job_posted_at && (
-  //           <Text as="p" size="2" color="gray">
-  //             <strong>Posted:</strong> {job.job_posted_at}
-  //           </Text>
-  //         )}
-  //       </Box>
-
-  //       {/* Job Description Preview */}
-  //       {job.job_description && (
-  //         <Text
-  //           as="p"
-  //           size="2"
-  //           color="gray"
-  //           style={{
-  //             display: "-webkit-box",
-  //             WebkitLineClamp: 4,
-  //             WebkitBoxOrient: "vertical",
-  //             overflow: "hidden",
-  //             textOverflow: "ellipsis",
-  //             marginBottom: "1rem",
-  //             lineHeight: "1.3rem",
-  //             maxHeight: "5.2rem",
-  //           }}
-  //         >
-  //           {job.job_description}
-  //         </Text>
-  //       )}
-
-  //       {/* Apply Button */}
-  //       <Flex justify="end" mt="auto">
-  //         <Button asChild size="2" color="blue" variant="solid">
-  //           <a
-  //             href={job.job_apply_link || "#"}
-  //             target="_blank"
-  //             rel="noopener noreferrer"
-  //           >
-  //             View Job
-  //           </a>
-  //         </Button>
-  //       </Flex>
-  //     </Card>
-  //   </Box>
-  // );
-
   return (
     <Card
       style={{
         maxWidth: fromSearch ? "100%" : "25%",
-        minWidth: 350,
+        minWidth: fromSearch ? "100%" : "350px",
         display: "flex",
         flexDirection: "column",
+        padding: "1rem",
       }}
     >
-      <Flex align="start" justify={"between"} style={{ margin: 10 }}>
-        <h2 className="lg:text-2xl text-md md:text-xl truncate">
-          {job.job_title}
-        </h2>
-        <Badge color="blue">{job.job_employment_type}</Badge>
+      {/* Top: Title + Employment Type */}
+      <Flex align="start" justify="between" mb="3">
+        <Heading as="h3" className="lg:text-2xl text-md md:text-xl truncate">
+          {job.title}
+        </Heading>
+        <Badge color="blue">{job.employment_type}</Badge>
       </Flex>
-      <div className="flex-1">
-        <p className="line-clamp-5 md:text-md text-sm">{job.job_description}</p>
-      </div>
-      <Badge color="blue" style={{ margin: "10px 0", width: "min-content" }}>
-        {job.job_location}
-      </Badge>
-      <Flex align={"end"} justify={"between"}>
-        <Box maxWidth="240px">
-          <Card>
-            <Flex gap="3" align="center">
-              <Avatar
-                size="2"
-                src={job.employer_logo || ""}
-                radius="full"
-                fallback="T"
-              />
-              <Box>
-                <Text as="div" size="2" weight="bold">
-                  {job.employer_name}
-                </Text>
-              </Box>
-            </Flex>
-          </Card>
-        </Box>
-        <Button
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text>View Job</Text>
-          <ThickChevronRightIcon />
+
+      {/* Description */}
+      <Text
+        as="p"
+        className="line-clamp-5 md:text-md text-sm text-gray-600 mb-2"
+      >
+        {job.description}
+      </Text>
+
+      {/* Location + Job Type + Salary */}
+      <Flex gap="3" wrap="wrap" my="2">
+        <Badge color="green">{job.location}</Badge>
+        <Badge color="orange">{job.job_type}</Badge>
+        {/* <Badge color="purple">₹{job.salary.toLocaleString()}</Badge> */}
+      </Flex>
+
+      <Separator size="4" my="3" />
+
+      {/* Footer: Dummy Avatar + Button */}
+      <Flex align="center" justify="between" mt="auto">
+        <Flex gap="3" align="center">
+          <Avatar size="2" fallback="J" radius="full" src="" />
+          <Box>
+            <Text size="2" weight="bold">
+              Hiring Team
+            </Text>
+            <Text size="1" color="gray">
+              Contact HR
+            </Text>
+          </Box>
+        </Flex>
+
+        <Button size="2" color="blue" variant="solid">
+          <Text mr="1">View Job</Text>
+          <ChevronRight />
         </Button>
       </Flex>
     </Card>

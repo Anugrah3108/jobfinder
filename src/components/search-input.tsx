@@ -7,7 +7,8 @@ import { useState } from "react";
 export default function SearchInput() {
   const [input, setInput] = useState("");
   const router = useRouter();
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+
+  async function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
       router.push(`/search?q=${encodeURIComponent(input.trim())}`);
     }

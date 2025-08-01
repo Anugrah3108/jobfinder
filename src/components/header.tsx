@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 
 import { Box, Flex, Text, Button, TextField } from "@radix-ui/themes";
@@ -8,11 +9,11 @@ import SearchInput from "./search-input";
 const links = [
   { label: "Home", href: "/" },
   { label: "Jobs", href: "/jobs" },
-  //   { label: "About", href: "/about" },
+  // { label: "Add Job", href: "/add-job" },
   //   { label: "Contact", href: "/contact" },
 ];
 
-export default function Header() {
+export default function Header({ user }) {
   return (
     <header className="sticky top-0 z-30 bg-gray-900">
       <Box
@@ -47,6 +48,18 @@ export default function Header() {
                 </Text>
               </Link>
             ))}
+
+            {user.role == "admin" && (
+              <Link href={"/add-job"}>
+                <Text
+                  size="2"
+                  color="gray"
+                  className="hover:text-indigo-600 transition cursor-pointer"
+                >
+                  Add Job
+                </Text>
+              </Link>
+            )}
 
             <Link href="/profile">
               <UserCircleIcon size={36} />
