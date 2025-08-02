@@ -3,7 +3,7 @@ import JobCard from "@/components/cards/job-card";
 import { data } from "@/data";
 
 export default async function SearchPage({ searchParams }) {
-  const query = searchParams.q;
+  const query = await searchParams.q;
   const jobType = searchParams.jt || "";
   const employmentType = searchParams.et || "";
   const salary = searchParams.ms || 100000;

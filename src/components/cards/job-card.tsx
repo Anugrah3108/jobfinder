@@ -10,6 +10,7 @@ import {
   Separator,
 } from "@radix-ui/themes";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 type Job = {
   id: string;
@@ -77,10 +78,12 @@ export default function Jobcard({
           </Box>
         </Flex>
 
-        <Button size="2" color="blue" variant="solid">
-          <Text mr="1">View Job</Text>
-          <ChevronRight />
-        </Button>
+        <Link href={`/jobs/${job.id}`}>
+          <Button size="2" color="blue" variant="solid">
+            <Text mr="1">View Job</Text>
+            <ChevronRight />
+          </Button>
+        </Link>
       </Flex>
     </Card>
   );

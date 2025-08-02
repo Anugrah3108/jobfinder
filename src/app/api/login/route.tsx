@@ -4,24 +4,25 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-
-  const user = await prismaClient.user.findUnique({
-    where: {
-      email: body.email,
-    },
-  });
-
-  if (user?.password == body?.password) {
-    const res = NextResponse.json({
-      success: true,
-      user,
+  try {
+    const user = await prismaClient.user.findUnique({
+      where: {
+        email: body.email,
+      },
     });
-    res.cookies.set("token", user?.email);
 
-    return res;
+    if (user?.password == body?.password) {
+      const res = NextResponse.json({
+        success: true,
+        user,
+      });
+      res.cookies.set("token", user?.email);
+
+      return res;
+    }
+  } catch (error) {
+    return NextResponse.json({
+      success: false,
+    });
   }
-
-  return NextResponse.json({
-    success: false,
-  });
 }

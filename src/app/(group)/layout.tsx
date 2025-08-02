@@ -12,15 +12,6 @@ export default function GroupLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const cookie = await cookies();
-  // const email = decodeURIComponent(cookie.get("token")?.value || "");
-
-  // const user = await prismaClient.user.findUnique({
-  //   where: {
-  //     email: email,
-  //   },
-  // });
-
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -31,7 +22,7 @@ export default function GroupLayout({
       console.log(data);
 
       if (data.success) {
-        setUser(data.user);
+        setUser(data.data);
       }
     }
     getUser();

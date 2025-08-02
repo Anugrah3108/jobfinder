@@ -39,11 +39,12 @@ export default function SearchInput() {
 
   async function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
+      setSuggestions([]);
       router.push(`/search?q=${encodeURIComponent(input.trim())}`);
     }
   }
   return (
-    <div className="relative">
+    <div className="relative lg:w-md md:w-xs sm:w-full">
       <Box className="w-full sm:w-auto flex-grow sm:flex-grow-0">
         <TextField.Root
           onChange={(e) => setInput(e.target.value)}
@@ -58,7 +59,7 @@ export default function SearchInput() {
         </TextField.Root>
       </Box>
       {suggestions.length > 0 && (
-        <div className="absolute z-30 bg-gray-800 p-2 ">
+        <div className="absolute z-30 bg-gray-800 p-2 w-full">
           {suggestions.map((elem) => {
             return (
               <p key={elem?.id} className="line-clamp-1">

@@ -30,3 +30,10 @@ model User {
   password String
   role     String
 }
+
+model Company {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  owner_id    String @unique
+}

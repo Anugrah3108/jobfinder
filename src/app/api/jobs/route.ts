@@ -1,3 +1,4 @@
+//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -24,11 +25,19 @@ export async function POST(req: NextRequest) {
     job_type: body.job_type || "on-site",
   };
 
-  const product = await prismaClient.job.create({
-    data: jobToSave,
-  });
-  return NextResponse.json({
-    success: true,
-    data: product,
-  });
+  try {
+    const product = await prismaClient.job.create({
+      data: jobToSave,
+    });
+    return NextResponse.json({
+      success: true,
+      data: product,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return NextResponse.json({
+      success: false,
+      message: "Something went wrong.",
+    });
+  }
 }

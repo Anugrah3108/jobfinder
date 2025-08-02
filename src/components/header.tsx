@@ -1,19 +1,19 @@
 //@ts-nocheck
 "use client";
 
-import { Box, Flex, Text, Button, TextField } from "@radix-ui/themes";
-import { UserCircleIcon } from "lucide-react";
+import {
+  Box,
+  Flex,
+  Text,
+  Button,
+  TextField,
+  DropdownMenu,
+} from "@radix-ui/themes";
+import { Bookmark, Send, Share, UserCircleIcon } from "lucide-react";
 import Link from "next/link";
 import SearchInput from "./search-input";
 import { useContext } from "react";
 import { UserContext } from "@/app/(group)/layout";
-
-const links = [
-  { label: "Home", href: "/" },
-  { label: "Jobs", href: "/jobs" },
-  // { label: "Add Job", href: "/add-job" },
-  //   { label: "Contact", href: "/contact" },
-];
 
 export default function Header() {
   const { user } = useContext(UserContext);
@@ -32,7 +32,9 @@ export default function Header() {
         >
           {/* Left: Logo */}
           <Text size="4" weight="bold" color="indigo" asChild>
-            <Link href="/">JobFinder.io</Link>
+            <Link href="/" className="shadow-md ">
+              JobFinder.io
+            </Link>
           </Text>
 
           {/* Middle: Search Box */}
@@ -40,33 +42,69 @@ export default function Header() {
 
           {/* Right: Nav Links */}
           <Flex gap="4" align="center" className="flex-wrap justify-center">
-            {links.map((link) => (
-              <Link key={link.href} href={link.href}>
-                <Text
+            {user?.company && (
+              <Link href={`/company/${user.company.id}`}>
+                <Button
+                  variant="surface"
                   size="2"
-                  color="gray"
+                  color="indigo"
                   className="hover:text-indigo-600 transition cursor-pointer"
                 >
-                  {link.label}
-                </Text>
+                  My Company
+                </Button>
               </Link>
-            ))}
+            )}
 
-            {user?.role == "admin" && (
+            {user?.company && (
               <Link href={"/add-job"}>
-                <Text
+                <Button
                   size="2"
-                  color="gray"
+                  color="indigo"
                   className="hover:text-indigo-600 transition cursor-pointer"
                 >
                   Add Job
+                </Button>
+              </Link>
+            )}
+
+            {!user?.company && (
+              <Link href={"company"}>
+                <Text
+                  size="2"
+                  color="gray"
+                  className="hover:text-indigo-600 transition cursor-pointer"
+                >
+                  Add Company
                 </Text>
               </Link>
             )}
 
-            <Link href="/profile">
-              <UserCircleIcon size={36} />
-            </Link>
+            {/* user dropdown */}
+
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger>
+                <UserCircleIcon size={36} />
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content>
+                <DropdownMenu.Item color="indigo">Profile</DropdownMenu.Item>
+
+                <DropdownMenu.Separator />
+                <DropdownMenu.Item>
+                  <Flex align={"center"} gap={"2"}>
+                    <Text>Share</Text>
+                    <Send className="h-4 w-4" />
+                  </Flex>
+                </DropdownMenu.Item>
+                <DropdownMenu.Item>
+                  <Flex align={"center"} gap={"2"}>
+                    <Text>Favourites</Text>
+                    <Bookmark className="h-4 w-4" />
+                  </Flex>
+                </DropdownMenu.Item>
+                <DropdownMenu.Separator />
+                <DropdownMenu.Item color="red">Logout</DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
           </Flex>
         </Flex>
       </Box>
