@@ -5,6 +5,8 @@ import { Box, Flex, Text, Button, TextField } from "@radix-ui/themes";
 import { UserCircleIcon } from "lucide-react";
 import Link from "next/link";
 import SearchInput from "./search-input";
+import { useContext } from "react";
+import { UserContext } from "@/app/(group)/layout";
 
 const links = [
   { label: "Home", href: "/" },
@@ -13,7 +15,8 @@ const links = [
   //   { label: "Contact", href: "/contact" },
 ];
 
-export default function Header({ user }) {
+export default function Header() {
+  const { user } = useContext(UserContext);
   return (
     <header className="sticky top-0 z-30 bg-gray-900">
       <Box
@@ -49,7 +52,7 @@ export default function Header({ user }) {
               </Link>
             ))}
 
-            {user.role == "admin" && (
+            {user?.role == "admin" && (
               <Link href={"/add-job"}>
                 <Text
                   size="2"

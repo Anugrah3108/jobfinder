@@ -3,10 +3,11 @@ import JobCard from "@/components/cards/job-card";
 import { data } from "@/data";
 
 export default async function SearchPage({ searchParams }) {
-  const query = await searchParams.q;
-  const jobType = (await searchParams.jt) || "";
-  const employmentType = (await searchParams.et) || "";
-  const page = (await searchParams.page) || 1;
+  const query = searchParams.q;
+  const jobType = searchParams.jt || "";
+  const employmentType = searchParams.et || "";
+  const salary = searchParams.ms || 100000;
+  const page = searchParams.page || 1;
 
   const res = await fetch(
     `http://localhost:3000/api/search?q=${query}&page=${page}&jt=${jobType}&et=${employmentType}`

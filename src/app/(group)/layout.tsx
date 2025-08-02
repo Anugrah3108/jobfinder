@@ -1,24 +1,53 @@
+//@ts-nocheck
+"use client";
 import Header from "@/components/header";
 import prismaClient from "@/services/prisma";
 import { cookies } from "next/headers";
+import { createContext, useEffect, useState } from "react";
 
-export default async function GroupLayout({
+export const UserContext = createContext();
+
+export default function GroupLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookie = await cookies();
-  const email = decodeURIComponent(cookie.get("token")?.value || "");
+  // const cookie = await cookies();
+  // const email = decodeURIComponent(cookie.get("token")?.value || "");
 
-  const user = await prismaClient.user.findUnique({
-    where: {
-      email: email,
-    },
-  });
+  // const user = await prismaClient.user.findUnique({
+  //   where: {
+  //     email: email,
+  //   },
+  // });
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function getUser() {
+      const res = await fetch("http://localhost:3000/api/current-user");
+      const data = await res.json();
+
+      console.log(data);
+
+      if (data.success) {
+        setUser(data.user);
+      }
+    }
+    getUser();
+  }, []);
+
   return (
     <div>
-      <Header user={user} />
-      {children}
+      <UserContext.Provider
+        value={{
+          user,
+          setUser,
+        }}
+      >
+        <Header />
+        {children}
+      </UserContext.Provider>
     </div>
   );
 }

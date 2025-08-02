@@ -6,7 +6,8 @@ export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const query = searchParams.get("q") || "";
   const jobType = searchParams.get("jt") || "";
-  const employmentType = searchParams.get("et");
+  const employmentType = searchParams.get("et") || "";
+  const salary = searchParams.get("ms") || 0;
   const page = searchParams.get("page")
     ? Number.parseInt(searchParams.get("page"))
     : 1;
@@ -19,6 +20,7 @@ export async function GET(req: NextRequest) {
       },
       ...(jobType && { job_type: jobType }),
       ...(employmentType && { employment_type: employmentType }),
+      // ...(salary && { salary: { gte: salary } }),
     },
     take: limit,
     skip: (page - 1) * limit,
