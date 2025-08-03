@@ -6,6 +6,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const user = await getUserFromCookies();
 
+  console.log("user", user);
+
   if (!user) {
     return NextResponse.json({
       success: false,

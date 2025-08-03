@@ -13,6 +13,7 @@ export default function DeleteCompany({ id }) {
     const data = await res.json();
     if (data.success) {
       alert("Company Deleted");
+      window.location.href = "/";
     }
   }
   return <Button onClick={handleDelete}>Delete Company</Button>;

@@ -12,24 +12,8 @@ export async function GET(req: NextRequest) {
       message: "user not found",
     });
   }
-  const userId = user.id;
-
-  try {
-    const company = await prismaClient.company.findUnique({
-      where: {
-        owner_id: userId,
-      },
-    });
-
-    return NextResponse.json({
-      success: true,
-      data: { user, company },
-    });
-  } catch (error) {
-    console.log(error.message);
-    return NextResponse.json({
-      success: false,
-      message: "Something went wrong.",
-    });
-  }
+  return NextResponse.json({
+    success: true,
+    data: user,
+  });
 }

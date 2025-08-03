@@ -19,7 +19,7 @@ export default async function Company({ params }) {
 
   const company = data.data?.company;
 
-  const owner = data?.data.owner;
+  // const owner = data?.data.owner;
 
   return (
     <div>
@@ -36,7 +36,7 @@ export default async function Company({ params }) {
             <Card p="2">
               <Flex gap={"2"} align={"center"} justify={"center"}>
                 <Text>Owner: </Text>
-                <Badge color="blue">{owner.email}</Badge>
+                <Badge color="blue">{company.owner.email}</Badge>
               </Flex>
             </Card>
           </Box>

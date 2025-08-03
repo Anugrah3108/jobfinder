@@ -69,13 +69,14 @@ export default function Header() {
 
             {!user?.company && (
               <Link href={"company"}>
-                <Text
+                <Button
+                  variant="surface"
                   size="2"
                   color="gray"
                   className="hover:text-indigo-600 transition cursor-pointer"
                 >
                   Add Company
-                </Text>
+                </Button>
               </Link>
             )}
 

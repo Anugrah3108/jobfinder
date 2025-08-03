@@ -44,7 +44,7 @@ export default function AddCompanyForm() {
 
     if (response.success) {
       alert("Company added to DB!");
-      redirect("/");
+      window.location.href = "/";
     }
 
     console.log("Submitted:", form);
