@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest, { params }) {
   const id = params.id;
   try {
-    const job = await prismaClient.job.findUnique({
+    const job = await prismaClient.openings.findUnique({
       where: {
         id: id,
       },

@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const suggestions = await prismaClient.job.findMany({
+    const suggestions = await prismaClient.openings.findMany({
       where: {
         title: {
           contains: q,

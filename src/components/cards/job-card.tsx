@@ -1,3 +1,4 @@
+//@ts-nocheck
 import {
   Avatar,
   Box,
@@ -12,15 +13,15 @@ import {
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-type Job = {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  employment_type: string;
-  salary: number;
-  job_type: string;
-};
+// type Job = {
+//   id: string;
+//   title: string;
+//   description: string;
+//   location: string;
+//   employment_type: string;
+//   salary: number;
+//   job_type: string;
+// };
 
 export default function Jobcard({
   job,
@@ -70,10 +71,9 @@ export default function Jobcard({
           <Avatar size="2" fallback="J" radius="full" src="" />
           <Box>
             <Text size="2" weight="bold">
-              Hiring Team
-            </Text>
-            <Text size="1" color="gray">
-              Contact HR
+              <Link href={`http://localhost:3000/company/${job?.company.id}`}>
+                {job?.company?.name}
+              </Link>
             </Text>
           </Box>
         </Flex>

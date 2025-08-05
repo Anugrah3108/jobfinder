@@ -87,7 +87,9 @@ export default function Header() {
                 <UserCircleIcon size={36} />
               </DropdownMenu.Trigger>
               <DropdownMenu.Content>
-                <DropdownMenu.Item color="indigo">Profile</DropdownMenu.Item>
+                <DropdownMenu.Item color="indigo">
+                  <Link href={"/profile"}>Profile</Link>
+                </DropdownMenu.Item>
 
                 <DropdownMenu.Separator />
                 <DropdownMenu.Item>
@@ -103,7 +105,9 @@ export default function Header() {
                   </Flex>
                 </DropdownMenu.Item>
                 <DropdownMenu.Separator />
-                <DropdownMenu.Item color="red">Logout</DropdownMenu.Item>
+                <DropdownMenu.Item color="red">
+                  <Link href={"/logout"}>Logout</Link>
+                </DropdownMenu.Item>
               </DropdownMenu.Content>
             </DropdownMenu.Root>
           </Flex>

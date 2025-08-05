@@ -14,15 +14,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Job {
-  id              String @id @default(auto()) @map("_id") @db.ObjectId
-  title           String
-  description     String
-  location        String
-  employment_type String @default("full-time")
-  salary          Int
-  job_type        String @default("On-site")
-}
+// model Job {
+//   id              String @id @default(auto()) @map("_id") @db.ObjectId
+//   title           String
+//   description     String
+//   location        String
+//   employment_type String @default("full-time")
+//   salary          Int
+//   job_type        String @default("On-site")
+// }
 
 model User {
   id       String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -33,9 +33,22 @@ model User {
 }
 
 model Company {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
-  owner_id    String @unique @db.ObjectId
-  owner       User   @relation(fields: [owner_id], references: [id])
+  owner_id    String     @unique @db.ObjectId
+  owner       User       @relation(fields: [owner_id], references: [id])
+  jobs        Openings[]
+}
+
+model Openings {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  description     String
+  location        String
+  employment_type String  @default("full-time")
+  salary          Int
+  job_type        String  @default("On-site")
+  company_id      String  @db.ObjectId
+  company         Company @relation(fields: [company_id], references: [id])
 }

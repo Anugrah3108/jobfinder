@@ -19,7 +19,7 @@ export default function GroupLayout({
       const res = await fetch("http://localhost:3000/api/current-user");
       const data = await res.json();
 
-      console.log(data);
+      // console.log(data);
 
       if (data.success) {
         setUser(data.data);

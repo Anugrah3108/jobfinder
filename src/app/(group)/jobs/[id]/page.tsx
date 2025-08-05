@@ -1,4 +1,5 @@
 //@ts-nocheck
+import GoBack from "@/components/go-back-btn";
 import {
   Card,
   Heading,
@@ -15,9 +16,8 @@ export default async function JobDetails({
 }: {
   params: { id: string };
 }) {
-  const res = await fetch(`http://localhost:3000/api/jobs/${params.id}`, {
-    cache: "no-store",
-  });
+  const { id } = await params;
+  const res = await fetch(`http://localhost:3000/api/jobs/${id}`);
 
   const result = await res.json();
 
@@ -26,39 +26,42 @@ export default async function JobDetails({
   const job = result.data;
 
   return (
-    <Box className="max-w-2xl mx-auto p-6">
-      <Card variant="classic">
-        <Heading size="7" mb="4">
-          {job.title}
-        </Heading>
+    <div className="relative">
+      <GoBack />
+      <Box className="max-w-2xl mx-auto p-6">
+        <Card variant="classic">
+          <Heading size="7" mb="4">
+            {job.title}
+          </Heading>
 
-        <Text as="p" size="2" className="h-[220px] overflow-y-scroll">
-          {job.description}
-        </Text>
+          <Text as="p" size="2" className="h-[220px] overflow-y-scroll">
+            {job.description}
+          </Text>
 
-        <Separator size="4" my="4" />
+          <Separator size="4" my="4" />
 
-        <Flex direction="column" gap="2">
-          <Text>
-            <strong>Location:</strong> {job.location}
-          </Text>
-          <Text>
-            <strong>Employment Type:</strong> {job.employment_type}
-          </Text>
-          <Text>
-            <strong>Job Type:</strong> {job.job_type}
-          </Text>
-          <Text>
-            <strong>Salary:</strong> ₹{job.salary}
-          </Text>
-        </Flex>
+          <Flex direction="column" gap="2">
+            <Text>
+              <strong>Location:</strong> {job.location}
+            </Text>
+            <Text>
+              <strong>Employment Type:</strong> {job.employment_type}
+            </Text>
+            <Text>
+              <strong>Job Type:</strong> {job.job_type}
+            </Text>
+            <Text>
+              <strong>Salary:</strong> ₹{job.salary}
+            </Text>
+          </Flex>
 
-        {/* Action Buttons */}
-        <Flex mt="5" gap="4">
-          <Button color="blue">Apply</Button>
-          <Button variant="surface">Save</Button>
-        </Flex>
-      </Card>
-    </Box>
+          {/* Action Buttons */}
+          <Flex mt="5" gap="4">
+            <Button color="blue">Apply</Button>
+            <Button variant="surface">Save</Button>
+          </Flex>
+        </Card>
+      </Box>
+    </div>
   );
 }

@@ -15,7 +15,7 @@ export default function AddAllJobs() {
       };
     });
     try {
-      const data = await prismaClient.job.createMany({
+      const data = await prismaClient.openings.createMany({
         data: newData,
       });
 

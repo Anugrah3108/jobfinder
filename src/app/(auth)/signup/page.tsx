@@ -84,8 +84,8 @@ export default function SignUp() {
               >
                 <Select.Trigger className="w-full" placeholder="Select role" />
                 <Select.Content>
-                  <Select.Item value="admin">Admin</Select.Item>
-                  <Select.Item value="user">User</Select.Item>
+                  <Select.Item value="Admin">Admin</Select.Item>
+                  <Select.Item value="User">User</Select.Item>
                 </Select.Content>
               </Select.Root>
             </Flex>

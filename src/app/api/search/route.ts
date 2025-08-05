@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     ? Number.parseInt(searchParams.get("page"))
     : 1;
   const limit = 10;
-  const data = await prismaClient.job.findMany({
+  const data = await prismaClient.openings.findMany({
     where: {
       title: {
         contains: query,

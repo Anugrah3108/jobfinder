@@ -40,6 +40,7 @@ export default function SearchInput() {
   async function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
       setSuggestions([]);
+      setInput("");
       router.push(`/search?q=${encodeURIComponent(input.trim())}`);
     }
   }

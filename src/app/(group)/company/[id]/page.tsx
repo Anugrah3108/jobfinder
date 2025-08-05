@@ -1,5 +1,6 @@
 // @ts-nocheck
 import DeleteCompany from "@/components/delete-company";
+import GoBack from "@/components/go-back-btn";
 import {
   Badge,
   Box,
@@ -16,14 +17,16 @@ export default async function Company({ params }) {
   const res = await fetch(`http://localhost:3000/api/company/${id}`);
 
   const data = await res.json();
+  console.log(data);
 
   const company = data.data?.company;
 
   // const owner = data?.data.owner;
 
   return (
-    <div>
-      <Box className="max-w-2xl mx-auto p-6">
+    <div className="relative flex justify-center items-center h-[90vh]">
+      <GoBack />
+      <Box className="w-2xl mx-auto p-6">
         <Card variant="classic">
           <Heading size="7" mb="4">
             {company.name}

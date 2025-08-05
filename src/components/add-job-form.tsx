@@ -1,5 +1,7 @@
+//@ts-nocheck
 "use client";
 
+import { UserContext } from "@/app/(group)/layout";
 import {
   Box,
   Button,
@@ -11,7 +13,7 @@ import {
   TextArea,
   TextField,
 } from "@radix-ui/themes"; // Or use from lucide-react if preferred
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 export default function AddJobForm() {
   const [form, setForm] = useState({
@@ -22,6 +24,8 @@ export default function AddJobForm() {
     salary: "",
     jobType: "",
   });
+
+  const { user } = useContext(UserContext);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -49,6 +53,7 @@ export default function AddJobForm() {
       employment_type: form.employmentType,
       salary: parsedSalary,
       job_type: form.jobType,
+      company_id: user.company.id,
     };
     const res = await fetch("http://localhost:3000/api/jobs", {
       method: "POST",
@@ -64,7 +69,9 @@ export default function AddJobForm() {
   }
 
   return (
-    <Card style={{ maxWidth: 600, margin: "auto", padding: "2rem" }}>
+    <Card
+      style={{ width: 600, minWidth: 350, margin: "auto", padding: "2rem" }}
+    >
       <Heading mb="4" size="6">
         Add Job
       </Heading>

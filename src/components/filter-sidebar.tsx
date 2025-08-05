@@ -1,5 +1,6 @@
 "use client";
 import { Button, Card, RadioGroup, Slider, Text } from "@radix-ui/themes";
+import { log } from "console";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -15,7 +16,7 @@ export default function FilterSidebar() {
 
   const [jobType, setJobType] = useState(jt || "remote");
   const [employmentType, setEmploymentType] = useState(et || "full-time");
-  const [salary, setSalary] = useState<number[]>([100000]);
+  const [salary, setSalary] = useState(100000);
 
   function handleSubmit() {
     const url = `/search?q=${q}&page=1&jt=${jobType}&et=${employmentType}`;
@@ -54,16 +55,14 @@ export default function FilterSidebar() {
             Salary Range:
           </Text>
           <Slider
-            value={salary}
-            onValueChange={setSalary}
+            defaultValue={[salary]}
+            onValueChange={(e) => setSalary(e?.[0] ?? 0)}
             min={100000}
             max={1000000}
             step={1000}
             variant="soft"
           />
-          <Text style={{ marginTop: 10 }}>
-            Selected: ₹{salary[0].toLocaleString()}
-          </Text>
+          <Text style={{ marginTop: "20px" }}>Selected: ₹{salary}</Text>
         </Card>
         <Button onClick={handleSubmit}>Apply Filters.</Button>
       </div>
