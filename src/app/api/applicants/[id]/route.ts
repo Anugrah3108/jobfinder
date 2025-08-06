@@ -8,9 +8,9 @@ export async function GET(
   const { id } = await params;
 
   try {
-    const reviews = await prismaClient.review.findMany({
+    const res = await prismaClient.applications.findMany({
       where: {
-        company_id: id,
+        job_id: id,
       },
       include: {
         user: true,
@@ -18,13 +18,15 @@ export async function GET(
     });
     return NextResponse.json({
       success: true,
-      data: reviews,
+      data: res,
     });
   } catch (error: any) {
     console.log(error.message);
     return NextResponse.json({
-      success: false,
-      message: "Something went Wrong.",
+      success: true,
+      data: {
+        message: "Something went wrong",
+      },
     });
   }
 }

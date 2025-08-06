@@ -1,8 +1,19 @@
-// @ts-nocheck
 import JobCard from "@/components/cards/job-card";
-import { data } from "@/data";
+import { Company, Openings } from "../../../../generated/prisma";
 
-export default async function SearchPage({ searchParams }) {
+type SearchParams = {
+  q?: string;
+  jt?: string;
+  et?: string;
+  ms?: string;
+  page?: string;
+};
+
+export default async function SearchPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   const searchParam = await searchParams;
   const query = searchParam.q;
   const jobType = searchParam.jt || "";
@@ -19,7 +30,7 @@ export default async function SearchPage({ searchParams }) {
   return (
     <main className="h-[90vh]">
       <div className="flex flex-wrap justify-center gap-6 py-10 h-full overflow-auto">
-        {jobs.map((job) => (
+        {jobs.map((job: Openings & { company: Company }) => (
           <JobCard fromSearch={true} key={job.id} job={job} />
         ))}
       </div>

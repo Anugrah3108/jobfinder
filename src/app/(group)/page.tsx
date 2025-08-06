@@ -1,19 +1,14 @@
-// @ts-nocheck
-import AddJobForm from "@/components/add-job-form";
 import JobCard from "@/components/cards/job-card";
-import { data } from "@/data";
+import { Company, Openings } from "../../../generated/prisma";
 
 export default async function Home() {
   const response = await fetch("http://localhost:3000/api/jobs");
   const data = await response.json();
-  // console.log("data", data);
-
   const jobs = data?.data;
-  // console.log(jobs);
   return (
     <main>
       <div className="flex flex-wrap justify-center gap-6 mt-6">
-        {jobs.map((job) => (
+        {jobs.map((job: Openings & { company: Company }) => (
           <JobCard key={job.id} job={job} />
         ))}
       </div>

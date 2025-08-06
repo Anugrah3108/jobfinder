@@ -1,9 +1,11 @@
-//@ts-nocheck
 import { getUserFromCookies } from "@/helper/helper";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   const { id } = await params;
 
   try {
@@ -34,7 +36,7 @@ export async function GET(req: NextRequest, { params }) {
         company,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message);
     return NextResponse.json({
       success: false,
@@ -43,7 +45,10 @@ export async function GET(req: NextRequest, { params }) {
   }
 }
 
-export async function DELETE(req: NextRequest, { params }) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   const { id } = await params;
   const user = await getUserFromCookies();
 

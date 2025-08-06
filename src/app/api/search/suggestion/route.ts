@@ -1,4 +1,3 @@
-//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -32,7 +31,7 @@ export async function GET(req: NextRequest) {
       success: true,
       suggestions,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message);
     return NextResponse.json({
       success: false,

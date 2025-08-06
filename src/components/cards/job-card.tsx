@@ -1,4 +1,3 @@
-//@ts-nocheck
 import {
   Avatar,
   Box,
@@ -12,23 +11,20 @@ import {
 } from "@radix-ui/themes";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { Company, Openings } from "../../../generated/prisma";
 
-// type Job = {
-//   id: string;
-//   title: string;
-//   description: string;
-//   location: string;
-//   employment_type: string;
-//   salary: number;
-//   job_type: string;
+// type comp = {
+//   company: Company;
 // };
 
 export default function Jobcard({
   job,
   fromSearch = false,
 }: {
-  job: Job;
-  fromSearch: boolean;
+  job: Openings & {
+    company: Company;
+  };
+  fromSearch?: boolean;
 }) {
   return (
     <Card

@@ -1,21 +1,20 @@
-//@ts-nocheck
 "use client";
 import GoBack from "@/components/go-back-btn";
 import {
   Badge,
-  Button,
   Card,
   Code,
   DataList,
   Flex,
   IconButton,
 } from "@radix-ui/themes";
-import { CircleArrowLeft, CopyIcon } from "lucide-react";
+import { CopyIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Company, User } from "../../../../generated/prisma";
 
 export default function UserProfile() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<User & { company: Company }>();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function getUser() {
@@ -23,12 +22,10 @@ export default function UserProfile() {
         const res = await fetch("http://localhost:3000/api/current-user");
         const data = await res.json();
 
-        //   console.log(data);
-
         if (data.success) {
           setUser(data.data);
         }
-      } catch (error) {
+      } catch (error: any) {
         console.log(error.message);
       } finally {
         setLoading(false);

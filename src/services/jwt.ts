@@ -1,16 +1,19 @@
-//@ts-nocheck
 import jwt from "jsonwebtoken";
-export function createToken(data) {
-  const token = jwt.sign(data, process.env.JWT_SECRET);
+
+type Data = {
+  id: string;
+};
+
+export function createToken(data: Data) {
+  const token = jwt.sign(data, process.env.JWT_SECRET as string);
   return token;
 }
 
-export function verifyToken(token) {
+export function verifyToken(token: string) {
   try {
-    const data = jwt.verify(token, process.env.JWT_SECRET);
+    const data = jwt.verify(token, process.env.JWT_SECRET as string);
     return data;
-  } catch (error) {
-    console.log(error.message);
+  } catch {
     return null;
   }
 }

@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import { UserContext } from "@/app/(group)/layout";
 import {
@@ -13,8 +12,13 @@ import {
 } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
+import { Company, Openings } from "../../generated/prisma";
 
-export default function EditDeleteJob({ job }) {
+export default function EditDeleteJob({
+  job,
+}: {
+  job: Openings & { company: Company };
+}) {
   const { user } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const router = useRouter();

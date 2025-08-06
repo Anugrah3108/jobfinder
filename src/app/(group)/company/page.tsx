@@ -10,7 +10,6 @@ import {
   TextArea,
   TextField,
 } from "@radix-ui/themes";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function AddCompanyForm() {

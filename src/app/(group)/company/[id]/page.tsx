@@ -1,30 +1,19 @@
-// @ts-nocheck
-import CompanyJobCard from "@/components/cards/company-job-card";
 import CompanyListingAndReviews from "@/components/company-listing-review";
 import DeleteCompany from "@/components/delete-company";
 import GoBack from "@/components/go-back-btn";
-import {
-  Badge,
-  Box,
-  Card,
-  Flex,
-  Heading,
-  Separator,
-  Text,
-} from "@radix-ui/themes";
+import { Badge, Box, Card, Flex, Heading, Separator } from "@radix-ui/themes";
 
-export default async function Company({ params }) {
+export default async function Company({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const param = await params;
   const id = param.id;
 
   const res = await fetch(`http://localhost:3000/api/company/${id}`);
-
   const data = await res.json();
-
   const company = data.data?.company;
-  // console.log(company);
-
-  // const owner = data?.data.owner;
 
   const revRes = await fetch(`http://localhost:3000/api/review/${id}`);
   const revData = await revRes.json();
@@ -42,9 +31,7 @@ export default async function Company({ params }) {
             </Flex>
           </Flex>
           <Separator size="4" my="4" />
-          <Card as="p" size="2">
-            {company.description}
-          </Card>
+          <Card size="2">{company.description}</Card>
           <Flex justify={"end"}>
             <DeleteCompany id={company.id} />
           </Flex>

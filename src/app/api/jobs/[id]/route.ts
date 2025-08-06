@@ -1,8 +1,10 @@
-//@ts-nocheck
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   const param = await params;
   const id = param.id;
   try {
@@ -26,7 +28,7 @@ export async function GET(req: NextRequest, { params }) {
         message: "No Job Found.",
       });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message);
     return NextResponse.json({
       success: false,
@@ -35,7 +37,10 @@ export async function GET(req: NextRequest, { params }) {
   }
 }
 
-export async function DELETE(req: NextRequest, { params }) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const param = await params;
     const jobId = param?.id;
@@ -50,7 +55,7 @@ export async function DELETE(req: NextRequest, { params }) {
       success: true,
       data: res,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message);
     return NextResponse.json({
       success: false,
@@ -59,7 +64,10 @@ export async function DELETE(req: NextRequest, { params }) {
   }
 }
 
-export async function PATCH(req: NextRequest, { params }) {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   const body = await req.json();
   const param = await params;
   const jobId = param.id;
@@ -76,7 +84,7 @@ export async function PATCH(req: NextRequest, { params }) {
       success: true,
       data: res,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message);
     return NextResponse.json({
       success: false,

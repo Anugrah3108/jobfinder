@@ -1,6 +1,7 @@
-//@ts-nocheck
 import EditDeleteJob from "@/components/edit-delete-job";
 import GoBack from "@/components/go-back-btn";
+import JobApplyButton from "@/components/job-apply-btn";
+import ViewJobApplictions from "@/components/view-job-applications";
 import {
   Card,
   Heading,
@@ -58,7 +59,8 @@ export default async function JobDetails({
 
           {/* Action Buttons */}
           <Flex mt="5" gap="4">
-            <Button color="blue">Apply</Button>
+            <JobApplyButton job={job} />
+            <ViewJobApplictions job={job} />
             <Button variant="surface">Save</Button>
             <EditDeleteJob job={job} />
           </Flex>
