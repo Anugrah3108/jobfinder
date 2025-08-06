@@ -1,7 +1,16 @@
 import CompanyListingAndReviews from "@/components/company-listing-review";
 import DeleteCompany from "@/components/delete-company";
 import GoBack from "@/components/go-back-btn";
-import { Badge, Box, Card, Flex, Heading, Separator } from "@radix-ui/themes";
+import {
+  Badge,
+  Box,
+  Button,
+  Card,
+  Flex,
+  Heading,
+  Separator,
+} from "@radix-ui/themes";
+import Link from "next/link";
 
 export default async function Company({
   params,
@@ -10,6 +19,7 @@ export default async function Company({
 }) {
   const param = await params;
   const id = param.id;
+  console.log(id);
 
   const res = await fetch(`http://localhost:3000/api/company/${id}`);
   const data = await res.json();
@@ -20,7 +30,7 @@ export default async function Company({
   const reviews = await revData.data;
 
   return (
-    <div className="relative flex justify-center items-center">
+    <div className="relative flex justify-center items-center min-h-[90vh]">
       <GoBack />
       <Box className="w-2xl mx-auto p-6">
         <Card variant="classic">
@@ -32,7 +42,13 @@ export default async function Company({
           </Flex>
           <Separator size="4" my="4" />
           <Card size="2">{company.description}</Card>
-          <Flex justify={"end"}>
+          {/* delete button */}
+          <Flex justify={"end"} gap={"4"} align={"center"}>
+            <Link href={"/add-job"}>
+              <Button size="2" color="indigo">
+                Add Job
+              </Button>
+            </Link>
             <DeleteCompany id={company.id} />
           </Flex>
           <Separator size="4" my="2" />

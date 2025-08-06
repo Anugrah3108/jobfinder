@@ -1,109 +1,72 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Card,
-  Flex,
-  Heading,
-  Text,
-  TextArea,
-  TextField,
-} from "@radix-ui/themes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Card, Button, Text, Heading, Flex } from "@radix-ui/themes";
+import Link from "next/link";
+import LoadingPage from "../loading";
+import { ArrowRight } from "lucide-react"; // 👈 Lucide icon
+import GoBack from "@/components/go-back-btn";
 
-export default function AddCompanyForm() {
-  const [form, setForm] = useState({
-    name: "",
-    description: "",
-  });
+type Company = {
+  id: string;
+  name: string;
+  description: string;
+  owner_id: string;
+};
 
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  }
+export default function AllCompany() {
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const data = {
-      name: form.name,
-      description: form.description,
-    };
-
-    const res = await fetch("http://localhost:3000/api/company", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-
-    const response = await res.json();
-
-    if (response.success) {
-      alert("Company added to DB!");
-      window.location.href = "/";
+  useEffect(() => {
+    async function fetchCompanies() {
+      try {
+        const res = await fetch("http://localhost:3000/api/company");
+        const data = await res.json();
+        setCompanies(data?.data || []);
+      } catch (err) {
+        console.error("Error fetching companies:", err);
+      } finally {
+        setLoading(false);
+      }
     }
 
-    console.log("Submitted:", form);
-  }
+    fetchCompanies();
+  }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-screen ">
-      <Card
-        style={{
-          width: 600,
-          maxWidth: 600,
-          minWidth: 350,
-          margin: "auto",
-          padding: "2rem",
-        }}
-      >
-        <Heading mb="4" size="6">
-          Add Company
-        </Heading>
-        <form onSubmit={handleSubmit}>
-          <Flex direction="column" gap="4">
-            {/* Company Name */}
-            <Box>
-              <Text as="label" size="2" mb="1">
-                Company Name
-              </Text>
-              <TextField.Root
-                placeholder="Enter company name"
-                value={form.name}
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, name: e.target.value }))
-                }
-              >
-                <TextField.Slot></TextField.Slot>
-              </TextField.Root>
-            </Box>
+    <div className="relative max-w-6xl mx-auto px-4 py-8 h-[90vh]">
+      <GoBack />
+      <Heading size="7" mb="6" align="center">
+        All Companies
+      </Heading>
 
-            {/* Company Description */}
-            <Box>
-              <Text as="label" size="2" mb="1">
-                Description
-              </Text>
-              <TextArea
-                name="description"
-                placeholder="Enter description"
-                value={form.description}
-                onChange={handleChange}
-                required
-              />
-            </Box>
+      {loading && <LoadingPage />}
 
-            {/* Submit Button */}
-            <Box mt="2">
-              <Button type="submit" color="blue">
-                Submit
-              </Button>
-            </Box>
-          </Flex>
-        </form>
-      </Card>
+      {!loading && companies.length === 0 && (
+        <Text align="center">No companies found.</Text>
+      )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {!loading &&
+          companies.map((company) => (
+            <Card
+              key={company.id}
+              className="p-6 space-y-3 shadow-lg hover:shadow-2xl transition duration-300 border border-gray-200"
+            >
+              <Heading size="5">{company.name}</Heading>
+              <Text color="gray">{company.description}</Text>
+              <Flex justify="end">
+                <Link href={`/company/${company.id}`}>
+                  <Button variant="solid" color="indigo">
+                    View Company <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </Flex>
+            </Card>
+          ))}
+        <p className="text-[#5472E4]">More Companies adding soon...</p>
+      </div>
     </div>
   );
 }

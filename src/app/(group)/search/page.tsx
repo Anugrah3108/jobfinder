@@ -28,8 +28,11 @@ export default async function SearchPage({
   const jobs = data.data;
 
   return (
-    <main className="h-[90vh]">
-      <div className="flex flex-wrap justify-center gap-6 py-10 h-full overflow-auto">
+    <main className="h-[90vh] w-full">
+      <h2 className="mt-2 font-semibold">
+        Showing results for: <span className="text-blue-400">"{query}"</span>
+      </h2>
+      <div className="flex flex-wrap justify-center gap-6 pt-2 pb-10 max-h-full w-full ">
         {jobs.map((job: Openings & { company: Company }) => (
           <JobCard fromSearch={true} key={job.id} job={job} />
         ))}

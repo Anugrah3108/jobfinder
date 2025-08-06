@@ -10,6 +10,7 @@ import {
   Text,
   TextField,
 } from "@radix-ui/themes";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -32,9 +33,9 @@ export default function SignUp() {
       }),
     });
     const data = await res.json();
-    // if (data.success) {
-    //   router.push("/");
-    // }
+    if (data.success) {
+      router.push("/");
+    }
     setLoading(false);
   }
 
@@ -99,13 +100,19 @@ export default function SignUp() {
 
           <Button
             type="submit"
-            color="blue"
+            // color="blue"
+            variant="solid"
             disabled={loading}
-            className="w-full"
+            className="w-full bg-[#5472E4] hover:bg-[#3c5dd1] text-white cursor-pointer"
           >
             {loading ? "Signing up..." : "Sign up"}
           </Button>
         </form>
+        <Link href={"/signin"}>
+          <button className="mt-4 py-2 w-full text-gray-400 hover:underline hover:text-gray-200 text-sm  shadow-md cursor-pointer">
+            Existing User? Log in
+          </button>
+        </Link>
       </Card>
     </Flex>
   );

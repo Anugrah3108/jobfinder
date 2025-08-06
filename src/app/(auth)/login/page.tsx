@@ -9,6 +9,7 @@ import {
   Text,
   TextField,
 } from "@radix-ui/themes";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -32,7 +33,6 @@ export default function LoginForm() {
 
     const data = await res.json();
     if (data.success) {
-      //   alert("logged IN");
       router.push("/");
     }
     setLoading(false);
@@ -82,13 +82,20 @@ export default function LoginForm() {
 
           <Button
             type="submit"
-            color="blue"
+            // color="blue"
+            variant="solid"
             disabled={loading}
-            className="w-full"
+            className="w-full bg-[#5472E4] hover:bg-[#3c5dd1] text-white"
           >
             {loading ? "Logging in..." : "Login"}
           </Button>
         </form>
+        <Link
+          href={"/signup"}
+          className="block mt-4 text-gray-400 hover:underline hover:text-gray-200 text-sm cursor-pointer"
+        >
+          New to JobFinder? Create an account.
+        </Link>
       </Card>
     </Flex>
   );

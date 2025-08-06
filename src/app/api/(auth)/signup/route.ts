@@ -25,11 +25,14 @@ export async function POST(req: NextRequest) {
     };
 
     const token = createToken(userTokenData);
-    const res = NextResponse.redirect("http://localhost:3000");
 
-    res.cookies.set("token", token);
+    const response = NextResponse.json({
+      success: true,
+    });
 
-    return res;
+    response.cookies.set("token", token);
+
+    return response;
   } catch (error) {
     console.log(error.message);
     return NextResponse.json({

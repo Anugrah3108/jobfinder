@@ -2,6 +2,8 @@
 import Header from "@/components/header";
 import { createContext, useEffect, useState } from "react";
 import { Company, User } from "../../../generated/prisma";
+import Footer from "@/components/footer";
+import { Separator } from "@radix-ui/themes";
 
 export const UserContext = createContext<{
   user?: (User & { company: Company }) | null;
@@ -37,6 +39,7 @@ export default function GroupLayout({
       >
         <Header />
         {children}
+        <Footer />
       </UserContext.Provider>
     </div>
   );

@@ -15,7 +15,7 @@ export default function LogOut() {
 
   return (
     <div className="flex justify-center items-center h-[90vh]">
-      <p className="text-center mt-10 font-semibold text-lg">Logging out...</p>;
+      <p className="text-center mt-10 font-semibold text-lg">Logging out...</p>
     </div>
   );
 }

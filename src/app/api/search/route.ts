@@ -28,10 +28,7 @@ export async function GET(req: NextRequest) {
           },
         },
       ],
-      title: {
-        contains: query,
-        mode: "insensitive",
-      },
+
       ...(jobType && { job_type: jobType }),
       ...(employmentType && { employment_type: employmentType }),
       // ...(salary && { salary: { gte: salary } }),
