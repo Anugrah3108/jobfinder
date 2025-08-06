@@ -1,4 +1,5 @@
 //@ts-nocheck
+import EditDeleteJob from "@/components/edit-delete-job";
 import GoBack from "@/components/go-back-btn";
 import {
   Card,
@@ -59,6 +60,7 @@ export default async function JobDetails({
           <Flex mt="5" gap="4">
             <Button color="blue">Apply</Button>
             <Button variant="surface">Save</Button>
+            <EditDeleteJob job={job} />
           </Flex>
         </Card>
       </Box>

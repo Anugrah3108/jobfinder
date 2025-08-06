@@ -4,7 +4,7 @@ import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, { params }) {
-  const id = await params.id;
+  const { id } = await params;
 
   try {
     const company = await prismaClient.company.findUnique({
@@ -12,6 +12,7 @@ export async function GET(req: NextRequest, { params }) {
         id: id,
       },
       include: {
+        jobs: true,
         owner: {
           omit: {
             password: true,
@@ -27,24 +28,10 @@ export async function GET(req: NextRequest, { params }) {
       });
     }
 
-    // const owner = await prismaClient.user.findUnique({
-    //   where: {
-    //     id: company?.owner_id,
-    //   },
-    // });
-
-    // if (!owner) {
-    //   return NextResponse.json({
-    //     success: false,
-    //     message: "Validate Owner.",
-    //   });
-    // }
-
     return NextResponse.json({
       success: true,
       data: {
         company,
-        // owner,
       },
     });
   } catch (error) {
@@ -59,12 +46,6 @@ export async function GET(req: NextRequest, { params }) {
 export async function DELETE(req: NextRequest, { params }) {
   const { id } = await params;
   const user = await getUserFromCookies();
-
-  // const company = await prismaClient.company.findUnique({
-  //   where: {
-  //     id,
-  //   },
-  // });
 
   if (user?.company?.id == id) {
     const res = await prismaClient.company.delete({

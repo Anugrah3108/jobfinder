@@ -3,11 +3,15 @@ import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, { params }) {
-  const id = params.id;
+  const param = await params;
+  const id = param.id;
   try {
     const job = await prismaClient.openings.findUnique({
       where: {
         id: id,
+      },
+      include: {
+        company: true,
       },
     });
 
@@ -27,6 +31,56 @@ export async function GET(req: NextRequest, { params }) {
     return NextResponse.json({
       success: false,
       message: "Something went wrong!",
+    });
+  }
+}
+
+export async function DELETE(req: NextRequest, { params }) {
+  try {
+    const param = await params;
+    const jobId = param?.id;
+
+    const res = await prismaClient.openings.delete({
+      where: {
+        id: jobId,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      data: res,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return NextResponse.json({
+      success: false,
+      message: "Something went wrong.",
+    });
+  }
+}
+
+export async function PATCH(req: NextRequest, { params }) {
+  const body = await req.json();
+  const param = await params;
+  const jobId = param.id;
+
+  try {
+    const res = await prismaClient.openings.update({
+      where: {
+        id: jobId,
+      },
+      data: body,
+    });
+
+    return NextResponse.json({
+      success: true,
+      data: res,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return NextResponse.json({
+      success: false,
+      message: "Something went wrong.",
     });
   }
 }

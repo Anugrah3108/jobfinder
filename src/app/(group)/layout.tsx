@@ -22,7 +22,7 @@ export default function GroupLayout({
       // console.log(data);
 
       if (data.success) {
-        setUser(data.data);
+        setUser(data?.data);
       }
     }
     getUser();

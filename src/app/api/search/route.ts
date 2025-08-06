@@ -13,7 +13,24 @@ export async function GET(req: NextRequest) {
     : 1;
   const limit = 10;
   const data = await prismaClient.openings.findMany({
+    // not working properly needto be assessed.
     where: {
+      OR: [
+        {
+          title: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          company: {
+            name: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        },
+      ],
       title: {
         contains: query,
         mode: "insensitive",

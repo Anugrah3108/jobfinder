@@ -71,7 +71,7 @@ export default function Jobcard({
           <Avatar size="2" fallback="J" radius="full" src="" />
           <Box>
             <Text size="2" weight="bold">
-              <Link href={`http://localhost:3000/company/${job?.company.id}`}>
+              <Link href={`http://localhost:3000/company/${job?.company?.id}`}>
                 {job?.company?.name}
               </Link>
             </Text>
