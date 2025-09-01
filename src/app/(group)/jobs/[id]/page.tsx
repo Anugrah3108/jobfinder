@@ -2,6 +2,8 @@ import EditDeleteJob from "@/components/edit-delete-job";
 import GoBack from "@/components/go-back-btn";
 import JobApplyButton from "@/components/job-apply-btn";
 import ViewJobApplictions from "@/components/view-job-applications";
+import { getUserFromCookies } from "@/helper/helper";
+import prismaClient from "@/services/prisma";
 import {
   Card,
   Heading,
@@ -20,10 +22,26 @@ export default async function JobDetails({
 }) {
   const { id } = await params;
   const res = await fetch(`http://localhost:3000/api/jobs/${id}`);
-
   const result = await res.json();
 
   if (!result.success) return notFound();
+
+  const user = await getUserFromCookies();
+
+  let userHasApplied = false;
+
+  if (user) {
+    const application = await prismaClient.applications.findMany({
+      where: {
+        job_id: id,
+        user_id: user.id,
+      },
+    });
+
+    if (application.length > 0) {
+      userHasApplied = true;
+    }
+  }
 
   const job = result.data;
 
@@ -59,7 +77,7 @@ export default async function JobDetails({
 
           {/* Action Buttons */}
           <Flex mt="5" gap="4">
-            <JobApplyButton job={job} />
+            {!userHasApplied && <JobApplyButton job={job} />}
             <ViewJobApplictions job={job} />
             <Button variant="surface">Save</Button>
             <EditDeleteJob job={job} />

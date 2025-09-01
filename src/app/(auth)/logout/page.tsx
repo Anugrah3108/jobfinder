@@ -9,7 +9,7 @@ export default function LogOut() {
       await fetch("http://localhost:3000/api/logout", {
         method: "POST",
       });
-      router.push("/login");
+      router.push("/");
     })();
   }, [router]);
 

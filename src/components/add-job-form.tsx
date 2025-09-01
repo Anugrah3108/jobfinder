@@ -65,6 +65,9 @@ export default function AddJobForm() {
     if (response.success) {
       alert("Product added in DB!");
       window.history.back();
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     }
     console.log("Submitted:", form);
   }

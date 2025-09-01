@@ -32,7 +32,6 @@ export default function EditDeleteJob({
     jobType: "",
   });
 
-  // Prefill form when dialog opens
   useEffect(() => {
     if (open) {
       setForm({
@@ -54,7 +53,10 @@ export default function EditDeleteJob({
       const data = await res.json();
       if (data?.success) {
         alert("Job Deleted Successfully.");
-        router.refresh(); // optional: refresh the page or redirect
+        window.history.back();
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
       } else {
         alert("Something went wrong.");
       }

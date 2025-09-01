@@ -89,6 +89,9 @@ export default function Header() {
                   <DropdownMenu.Item color="indigo" asChild>
                     <Link href={"/profile"}>Profile</Link>
                   </DropdownMenu.Item>
+                  <DropdownMenu.Item color="indigo" asChild>
+                    <Link href={"/applied-jobs"}>My Applications</Link>
+                  </DropdownMenu.Item>
 
                   <DropdownMenu.Separator />
                   {user?.company?.id && (

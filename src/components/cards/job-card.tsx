@@ -63,16 +63,18 @@ export default function Jobcard({
 
       {/* Footer: Dummy Avatar + Button */}
       <Flex align="center" justify="between" mt="auto">
-        <Flex gap="3" align="center">
-          <Avatar size="2" fallback="J" radius="full" src="" />
-          <Box>
-            <Text size="2" weight="bold">
-              <Link href={`http://localhost:3000/company/${job?.company?.id}`}>
-                {job?.company?.name}
-              </Link>
-            </Text>
-          </Box>
-        </Flex>
+        {job.company && (
+          <Flex gap="3" align="center">
+            <Avatar size="2" fallback="J" radius="full" src="" />
+            <Box>
+              <Text size="2" weight="bold">
+                <Link href={`/company/${job?.company?.id}`}>
+                  {job?.company?.name}
+                </Link>
+              </Text>
+            </Box>
+          </Flex>
+        )}
 
         <Link href={`/jobs/${job.id}`}>
           <Button size="2" color="blue" variant="solid">
