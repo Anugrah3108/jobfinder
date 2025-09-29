@@ -7,9 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Brand */}
         <div>
-          <h2 className="text-xl font-semibold text-white mb-2">
-            JobFinder.io
-          </h2>
+          <h2 className="text-xl font-semibold text-white mb-2">JobFinder</h2>
           <p className="text-sm">
             Empowering talent and companies to connect and grow.
           </p>
@@ -63,7 +61,7 @@ export default function Footer() {
 
       {/* Divider */}
       <div className="border-t border-gray-700 mt-2 pt-4 text-center text-sm text-gray-500">
-        &copy; {new Date().getFullYear()} JobFinder.io. All rights reserved.
+        &copy; {new Date().getFullYear()} JobFinder. All rights reserved.
       </div>
       <Flex justify={"center"} align={"center"} gap={"2"}>
         <p className="text-gray-400 text-sm">Author:</p>

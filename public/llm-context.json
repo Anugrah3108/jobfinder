@@ -1,0 +1,28 @@
+{
+    "businessName": "JobFinder",
+    "description": "JobFinder helps users discover jobs that match their skills and explore the best companies hiring today.",
+    "website": "https://jobfinder.anugrah.tech",
+    "contactEmail": "info@jobfinder.anugrah.tech",
+    "keywords": [
+        "jobs",
+        "careers",
+        "companies",
+        "employment",
+        "job search",
+        "hiring"
+    ],
+    "social": {
+        "twitter": "https://twitter.com/yourtwitter",
+        "linkedin": "https://linkedin.com/company/yourcompany"
+    },
+    "faq": [
+        {
+            "question": "What is JobFinder?",
+            "answer": "JobFinder is a platform to discover jobs and explore top companies."
+        },
+        {
+            "question": "How do I apply for a job?",
+            "answer": "Browse jobs, select one, and click the apply button."
+        }
+    ]
+}

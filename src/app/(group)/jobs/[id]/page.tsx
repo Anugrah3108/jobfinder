@@ -48,6 +48,101 @@ export default async function JobDetails({
   return (
     <div className="relative">
       <GoBack />
+      <head>
+        {/* OG and Twitter meta tags for social sharing */}
+        <title>{job.title} | JobFinder</title>
+        <meta name="description" content={job.description} />
+        <meta property="og:title" content={job.title + " | JobFinder"} />
+        <meta property="og:description" content={job.description} />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content={`https://jobfinder.anugrah.tech/jobs/${job.id}`}
+        />
+        <meta property="og:image" content="/public/og-image.png" />
+        <meta property="og:site_name" content="JobFinder" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={job.title + " | JobFinder"} />
+        <meta name="twitter:description" content={job.description} />
+        <meta name="twitter:image" content="/public/og-image.png" />
+        <meta name="twitter:site" content="@yourtwitter" />
+        <meta name="twitter:creator" content="@yourtwitter" />
+        <link
+          rel="canonical"
+          href={`https://jobfinder.anugrah.tech/jobs/${job.id}`}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "JobPosting",
+              title: job.title,
+              description: job.description,
+              datePosted: job.createdAt || new Date().toISOString(),
+              validThrough:
+                job.validThrough ||
+                new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+              employmentType: job.employment_type,
+              jobLocation: {
+                "@type": "Place",
+                address: job.location,
+              },
+              baseSalary: {
+                "@type": "MonetaryAmount",
+                currency: "INR",
+                value: {
+                  "@type": "QuantitativeValue",
+                  value: job.salary,
+                  unitText: "YEAR",
+                },
+              },
+              hiringOrganization: {
+                "@type": "Organization",
+                name: job.company?.name || "JobFinder",
+                sameAs:
+                  "https://jobfinder.anugrah.tech/company/" +
+                  (job.company?.id || ""),
+              },
+              identifier: {
+                "@type": "PropertyValue",
+                name: job.title,
+                value: job.id,
+              },
+              url: `https://jobfinder.anugrah.tech/jobs/${job.id}`,
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://jobfinder.anugrah.tech/",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Jobs",
+                  item: "https://jobfinder.anugrah.tech/jobs",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  name: job.title,
+                  item: `https://jobfinder.anugrah.tech/jobs/${job.id}`,
+                },
+              ],
+            }),
+          }}
+        />
+      </head>
       <Box className="max-w-2xl mx-auto p-6">
         <Card variant="classic">
           <Heading size="7" mb="4">

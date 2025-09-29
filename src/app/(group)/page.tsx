@@ -9,6 +9,31 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen w-full scroll-smooth bg-gray-900 text-white">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://yourdomain.com/",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Jobs",
+                  item: "https://yourdomain.com/",
+                },
+              ],
+            }),
+          }}
+        />
+      </head>
       <section className="h-[90vh] flex flex-col items-center justify-center text-center px-4 bg-gradient-to-br from-gray-950 to-gray-900">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
           Discover Your Next Opportunity
