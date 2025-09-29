@@ -12,11 +12,7 @@ import {
 } from "@radix-ui/themes";
 import Link from "next/link";
 
-export default async function Company({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function Company({ params }: { params: any }) {
   const param = await params;
   const id = param.id;
   console.log(id);
@@ -111,13 +107,13 @@ export default async function Company({
                   "@type": "ListItem",
                   position: 1,
                   name: "Home",
-                  item: "https://yourdomain.com/",
+                  item: "https://jobfinder.anugrah.tech/",
                 },
                 {
                   "@type": "ListItem",
                   position: 2,
                   name: "Companies",
-                  item: "https://yourdomain.com/company",
+                  item: "https://jobfinder.anugrah.tech/company",
                 },
                 {
                   "@type": "ListItem",

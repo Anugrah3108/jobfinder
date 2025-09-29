@@ -1,11 +1,13 @@
 import JobCard from "@/components/cards/job-card";
 import { Company, Openings } from "../../../generated/prisma";
+import prismaClient from "@/services/prisma";
 import Link from "next/link";
 
 export default async function Home() {
-  const response = await fetch("http://localhost:3000/api/jobs");
-  const data = await response.json();
-  const jobs = data?.data;
+  const jobs = await prismaClient.openings.findMany({
+    take: 10,
+    include: { company: true },
+  });
 
   return (
     <main className="min-h-screen w-full scroll-smooth bg-gray-900 text-white">

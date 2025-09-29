@@ -12,7 +12,7 @@ type SearchParams = {
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
   const searchParam = await searchParams;
   const query = searchParam.q;

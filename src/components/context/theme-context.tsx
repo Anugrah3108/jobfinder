@@ -1,16 +1,26 @@
-//@ts-nocheck
 "use client";
 import { Theme } from "@radix-ui/themes";
-import { createContext, useState } from "react";
+import {
+  createContext,
+  useState,
+  Dispatch,
+  SetStateAction,
+  ReactNode,
+} from "react";
 
-export const Context = createContext();
+interface ThemeContextType {
+  isDark: boolean;
+  setIsDark: Dispatch<SetStateAction<boolean>>;
+}
+
+export const Context = createContext<ThemeContextType | undefined>(undefined);
 
 export default function ThemeContext({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState<boolean>(true);
   return (
     <Context.Provider value={{ isDark, setIsDark }}>
       <Theme appearance={isDark ? "dark" : "light"}>{children}</Theme>

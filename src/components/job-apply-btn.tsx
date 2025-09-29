@@ -1,8 +1,12 @@
-//@ts-nocheck
 "use client";
 import { Button } from "@radix-ui/themes";
 
-export default function JobApplyButton({ job }) {
+interface Job {
+  id: string;
+  // Add more fields as needed
+}
+
+export default function JobApplyButton({ job }: { job: Job }) {
   async function handleSubmit() {
     try {
       const res = await fetch("/api/jobs/apply/" + job?.id);

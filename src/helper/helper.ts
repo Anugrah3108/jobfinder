@@ -1,17 +1,17 @@
-//@ts-nocheck
 import jwt from "jsonwebtoken";
 import prismaClient from "@/services/prisma";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/services/jwt";
 
-export async function getUserFromCookies() {
+// TODO: Replace 'any' with a proper user type
+export async function getUserFromCookies(): Promise<any | null> {
   const userCookies = await cookies();
   const token = userCookies.get("token")?.value;
 
   if (!token) return null;
-  const data = verifyToken(token);
+  const data: any = verifyToken(token);
   if (!data) return null;
-  let user;
+  let user: any;
   try {
     user = await prismaClient.user.findUnique({
       where: {
@@ -24,7 +24,7 @@ export async function getUserFromCookies() {
         password: true,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message);
   }
 

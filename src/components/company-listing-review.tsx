@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import {
   Badge,
@@ -10,13 +9,41 @@ import {
   TextArea,
 } from "@radix-ui/themes";
 import CompanyJobCard from "./cards/company-job-card";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "@/app/(group)/layout";
 
-export default function CompanyListingAndReviews({ reviews, company }) {
-  const [review, setReview] = useState("");
-  const [reviewList, setReviewList] = useState([]);
-  const { user } = useContext(UserContext);
+interface Job {
+  id: string;
+  title: string;
+  description: string;
+  employment_type: string;
+  location: string;
+  job_type: string;
+  salary: number;
+}
+
+interface Company {
+  id: string;
+  name: string;
+  description: string;
+  jobs: Job[];
+}
+
+interface Review {
+  id?: string;
+  content: string;
+  user: { email: string };
+}
+
+interface Props {
+  reviews: Review[];
+  company: Company;
+}
+
+export default function CompanyListingAndReviews({ reviews, company }: Props) {
+  const [review, setReview] = useState<string>("");
+  const [reviewList, setReviewList] = useState<Review[]>([]);
+  const { user } = useContext(UserContext) as { user: any };
 
   async function handleCreateReview() {
     const reviewToSave = {
@@ -38,18 +65,12 @@ export default function CompanyListingAndReviews({ reviews, company }) {
 
     if (data.success) {
       alert("Review created.");
-      setReviewList(finalReview, ...reviewList);
+      setReviewList([finalReview, ...reviewList]);
       setReview("");
     } else {
       alert("Something went wrong.");
     }
   }
-
-  //   useEffect(() => {
-  //     async ()=>{
-
-  //     }
-  //   }, [] );
 
   return (
     <Tabs.Root defaultValue="listed-jobs">
