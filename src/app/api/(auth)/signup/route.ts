@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { createToken } from "@/services/jwt";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
@@ -33,8 +32,10 @@ export async function POST(req: NextRequest) {
     response.cookies.set("token", token);
 
     return response;
-  } catch (error) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     return NextResponse.json({
       success: false,
       message: "Something went wrong.",

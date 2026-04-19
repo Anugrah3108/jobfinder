@@ -21,11 +21,11 @@ export default async function Company({
   const id = param.id;
   console.log(id);
 
-  const res = await fetch(`http://localhost:3000/api/company/${id}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company/${id}`);
   const data = await res.json();
   const company = data.data?.company;
 
-  const revRes = await fetch(`http://localhost:3000/api/review/${id}`);
+  const revRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/review/${id}`);
   const revData = await revRes.json();
   const reviews = await revData.data;
 

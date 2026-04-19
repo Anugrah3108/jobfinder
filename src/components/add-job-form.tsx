@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 
 import { UserContext } from "@/app/(group)/layout";
@@ -28,7 +27,7 @@ export default function AddJobForm() {
   const { user } = useContext(UserContext);
 
   function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) {
     setForm((prev) => ({
       ...prev,
@@ -45,6 +44,10 @@ export default function AddJobForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!user || !user.company) {
+      alert("User or company not found.");
+      return;
+    }
     const parsedSalary = Number.parseFloat(form.salary);
     const data = {
       title: form.title,
@@ -55,7 +58,7 @@ export default function AddJobForm() {
       job_type: form.jobType,
       company_id: user.company.id,
     };
-    const res = await fetch("http://localhost:3000/api/jobs", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/jobs`, {
       method: "POST",
       body: JSON.stringify(data),
     });

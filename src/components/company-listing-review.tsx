@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import {
   Badge,
@@ -10,15 +9,29 @@ import {
   TextArea,
 } from "@radix-ui/themes";
 import CompanyJobCard from "./cards/company-job-card";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "@/app/(group)/layout";
+import { Company, Openings, Review } from "../../generated/prisma";
 
-export default function CompanyListingAndReviews({ reviews, company }) {
+export default function CompanyListingAndReviews({
+  reviews,
+  company,
+}: {
+  reviews: (Review & { user: { email: string } })[];
+  company: Company & { jobs: Openings[] };
+}) {
   const [review, setReview] = useState("");
-  const [reviewList, setReviewList] = useState([]);
+  const [reviewList, setReviewList] = useState<
+    (Review & { user: { email: string } })[]
+  >([]);
   const { user } = useContext(UserContext);
 
   async function handleCreateReview() {
+    if (!user) {
+      alert("You need to login to add a review.");
+      return;
+    }
+
     const reviewToSave = {
       content: review,
       company_id: company.id,
@@ -26,6 +39,8 @@ export default function CompanyListingAndReviews({ reviews, company }) {
 
     const finalReview = {
       ...reviewToSave,
+      id: Math.random().toString(), // temporary id for local state
+      user_id: user.id,
       user,
     };
 
@@ -38,7 +53,7 @@ export default function CompanyListingAndReviews({ reviews, company }) {
 
     if (data.success) {
       alert("Review created.");
-      setReviewList(finalReview, ...reviewList);
+      setReviewList([finalReview, ...reviewList]);
       setReview("");
     } else {
       alert("Something went wrong.");

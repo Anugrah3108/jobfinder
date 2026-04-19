@@ -1,6 +1,5 @@
 "use client";
 import { Button, Card, RadioGroup, Slider, Text } from "@radix-ui/themes";
-import { log } from "console";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

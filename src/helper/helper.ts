@@ -1,5 +1,3 @@
-//@ts-nocheck
-import jwt from "jsonwebtoken";
 import prismaClient from "@/services/prisma";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/services/jwt";
@@ -24,8 +22,8 @@ export async function getUserFromCookies() {
         password: true,
       },
     });
-  } catch (error) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) console.log(error.message);
   }
 
   if (!user) return null;

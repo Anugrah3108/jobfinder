@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import { Box, TextField } from "@radix-ui/themes";
 import { Search } from "lucide-react";
@@ -8,12 +7,14 @@ import { useEffect, useState } from "react";
 export default function SearchInput() {
   const [input, setInput] = useState("");
   const router = useRouter();
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<
+    { id: string; title: string }[]
+  >([]);
 
   useEffect(() => {
     async function getSuggestions() {
       const res = await fetch(
-        `http://localhost:3000/api/search/suggestion?q=${input}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/search/suggestion?q=${input}`,
       );
       const data = await res.json();
 
@@ -22,7 +23,7 @@ export default function SearchInput() {
       }
     }
 
-    let timer;
+    let timer: NodeJS.Timeout | undefined;
 
     if (input) {
       timer = setTimeout(() => {

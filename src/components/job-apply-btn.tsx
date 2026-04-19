@@ -1,8 +1,8 @@
-//@ts-nocheck
 "use client";
 import { Button } from "@radix-ui/themes";
+import { Openings } from "../../generated/prisma";
 
-export default function JobApplyButton({ job }) {
+export default function JobApplyButton({ job }: { job: Openings }) {
   async function handleSubmit() {
     try {
       const res = await fetch("/api/jobs/apply/" + job?.id);
@@ -12,7 +12,7 @@ export default function JobApplyButton({ job }) {
       } else {
         alert("Something went wrong");
       }
-    } catch (error) {
+    } catch {
       alert("Something went wrong");
     }
   }

@@ -6,7 +6,6 @@ export async function GET(req: NextRequest) {
   const query: string = searchParams.get("q") ?? "";
   const jobType: string = searchParams.get("jt") ?? "";
   const employmentType: string = searchParams.get("et") ?? "";
-  const salary: number = parseInt(searchParams.get("ms") ?? "0", 10);
   const page: number = parseInt(searchParams.get("page") ?? "1", 10);
   const limit: number = 10;
   const data = await prismaClient.openings.findMany({

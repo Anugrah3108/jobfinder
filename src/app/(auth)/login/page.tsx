@@ -23,7 +23,7 @@ export default function LoginForm() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const res = await fetch("http://localhost:3000/api/login", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`, {
       method: "POST",
       body: JSON.stringify({
         email: form.email,

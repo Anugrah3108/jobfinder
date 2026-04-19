@@ -1,7 +1,7 @@
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   const res = await prismaClient.openings.findMany({
     take: 10,
     include: {
@@ -28,8 +28,10 @@ export async function POST(req: NextRequest) {
       success: true,
       data: product,
     });
-  } catch (error: any) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     return NextResponse.json({
       success: false,
       message: "Something went wrong.",

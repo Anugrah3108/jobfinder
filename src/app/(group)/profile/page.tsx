@@ -19,14 +19,20 @@ export default function UserProfile() {
   useEffect(() => {
     async function getUser() {
       try {
-        const res = await fetch("http://localhost:3000/api/current-user");
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/current-user`,
+        );
         const data = await res.json();
 
         if (data.success) {
           setUser(data.data);
         }
-      } catch (error: any) {
-        console.log(error.message);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        } else {
+          console.log("An unknown error occurred");
+        }
       } finally {
         setLoading(false);
       }

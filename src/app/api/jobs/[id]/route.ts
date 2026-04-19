@@ -1,10 +1,9 @@
-import { getUserFromCookies } from "@/helper/helper";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const param = await params;
   const id = param.id;
@@ -29,8 +28,10 @@ export async function GET(
         message: "No Job Found.",
       });
     }
-  } catch (error: any) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     return NextResponse.json({
       success: false,
       message: "Something went wrong!",
@@ -40,7 +41,7 @@ export async function GET(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const param = await params;
@@ -56,8 +57,10 @@ export async function DELETE(
       success: true,
       data: res,
     });
-  } catch (error: any) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     return NextResponse.json({
       success: false,
       message: "Something went wrong.",
@@ -67,7 +70,7 @@ export async function DELETE(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const body = await req.json();
   const param = await params;
@@ -85,8 +88,10 @@ export async function PATCH(
       success: true,
       data: res,
     });
-  } catch (error: any) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     return NextResponse.json({
       success: false,
       message: "Something went wrong.",
