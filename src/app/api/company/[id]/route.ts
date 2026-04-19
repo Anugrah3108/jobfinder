@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
 
@@ -36,8 +36,10 @@ export async function GET(
         company,
       },
     });
-  } catch (error: any) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     return NextResponse.json({
       success: false,
       message: "Something went wrong!",
@@ -47,13 +49,13 @@ export async function GET(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
   const user = await getUserFromCookies();
 
   if (user?.company?.id == id) {
-    const res = await prismaClient.company.delete({
+    await prismaClient.company.delete({
       where: {
         id,
       },

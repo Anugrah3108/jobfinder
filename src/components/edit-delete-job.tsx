@@ -60,13 +60,13 @@ export default function EditDeleteJob({
       } else {
         alert("Something went wrong.");
       }
-    } catch (error) {
+    } catch {
       alert("Error deleting job.");
     }
   }
 
   function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) {
     setForm((prev) => ({
       ...prev,
@@ -96,10 +96,13 @@ export default function EditDeleteJob({
 
     console.log(updatedData);
 
-    const res = await fetch(`http://localhost:3000/api/jobs/${job.id}`, {
-      method: "PATCH",
-      body: JSON.stringify(updatedData),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/jobs/${job.id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(updatedData),
+      },
+    );
 
     const response = await res.json();
     if (response.success) {

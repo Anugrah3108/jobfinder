@@ -11,7 +11,9 @@ export function createToken(data: Data) {
 
 export function verifyToken(token: string) {
   try {
-    const data = jwt.verify(token, process.env.JWT_SECRET as string);
+    const data = jwt.verify(token, process.env.JWT_SECRET as string) as {
+      id: string;
+    };
     return data;
   } catch {
     return null;

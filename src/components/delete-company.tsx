@@ -1,11 +1,10 @@
-//@ts-nocheck
 "use client";
 
 import { UserContext } from "@/app/(group)/layout";
 import { Button } from "@radix-ui/themes";
 import { useContext } from "react";
 
-export default function DeleteCompany({ id }) {
+export default function DeleteCompany({ id }: { id: string }) {
   const { user } = useContext(UserContext);
   async function handleDelete() {
     alert("Are you sure. You want to delete the company.");

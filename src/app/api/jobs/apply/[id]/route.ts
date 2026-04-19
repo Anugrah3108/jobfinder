@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const user = await getUserFromCookies();
   const { id } = await params;
@@ -30,8 +30,10 @@ export async function GET(
       success: true,
       data: applications,
     });
-  } catch (error: any) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     return NextResponse.json({
       success: false,
       data: {

@@ -1,8 +1,5 @@
-//@ts-nocheck
 import {
-  Avatar,
   Badge,
-  Box,
   Button,
   Card,
   Flex,
@@ -12,8 +9,9 @@ import {
 } from "@radix-ui/themes";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { Openings } from "../../../generated/prisma";
 
-export default function CompanyJobCard({ job }) {
+export default function CompanyJobCard({ job }: { job: Openings }) {
   return (
     <Card
       style={{

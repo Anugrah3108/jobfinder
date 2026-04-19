@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       success: true,
       data: review,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json({
       success: true,
       message: "Something wnet Wrong.",

@@ -2,15 +2,17 @@ import { getUserFromCookies } from "@/helper/helper";
 import prismaClient from "@/services/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const res = await prismaClient.company.findMany();
     return NextResponse.json({
       success: true,
       data: res,
     });
-  } catch (error: any) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     return NextResponse.json({
       success: false,
     });
@@ -45,8 +47,10 @@ export async function POST(req: NextRequest) {
       success: true,
       data: newCompany,
     });
-  } catch (error: any) {
-    console.log(error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     return NextResponse.json({
       success: false,
     });

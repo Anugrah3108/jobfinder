@@ -12,6 +12,7 @@ export default function AddAllJobs() {
         location: elem.job_location,
         employment_type: "full-time",
         job_type: "on-site",
+        company_id: "default_company_id", // Update with an actual ID if needed
       };
     });
     try {

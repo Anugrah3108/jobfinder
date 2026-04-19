@@ -1,9 +1,11 @@
-//@ts-nocheck
 "use client";
 import { Theme } from "@radix-ui/themes";
 import { createContext, useState } from "react";
 
-export const Context = createContext();
+export const Context = createContext<{
+  isDark: boolean;
+  setIsDark: (val: boolean) => void;
+}>({ isDark: true, setIsDark: () => {} });
 
 export default function ThemeContext({
   children,

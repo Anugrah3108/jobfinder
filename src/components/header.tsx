@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Flex, Text, Button, DropdownMenu } from "@radix-ui/themes";
-import { Bookmark, Building2, Send, Share, UserCircleIcon } from "lucide-react";
+import { Bookmark, Building2, UserCircleIcon } from "lucide-react";
 import Link from "next/link";
 import SearchInput from "./search-input";
 import { useContext } from "react";

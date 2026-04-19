@@ -6,7 +6,7 @@ export default function LogOut() {
   const router = useRouter();
   useEffect(() => {
     (async () => {
-      await fetch("http://localhost:3000/api/logout", {
+      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
         method: "POST",
       });
       router.push("/");

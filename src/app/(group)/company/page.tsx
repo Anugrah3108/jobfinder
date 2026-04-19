@@ -21,7 +21,7 @@ export default function AllCompany() {
   useEffect(() => {
     async function fetchCompanies() {
       try {
-        const res = await fetch("http://localhost:3000/api/company");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/company`);
         const data = await res.json();
         setCompanies(data?.data || []);
       } catch (err) {

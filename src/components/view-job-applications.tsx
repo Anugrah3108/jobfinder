@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/app/(group)/layout";
-import { Company, Openings, User } from "../../generated/prisma";
+import { Openings, User } from "../../generated/prisma";
 import {
   Badge,
   Button,
@@ -20,7 +20,7 @@ export default function ViewJobApplictions({
   job: Openings & { user: User };
 }) {
   const [applicants, setApplicants] = useState<(Openings & { user: User })[]>(
-    []
+    [],
   );
   const [loading, setLoading] = useState(false);
 
